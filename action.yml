@@ -1,0 +1,39 @@
+name: 'Notification action'
+description: 'Notification reusable action'
+author: 'Gutenberg Technology'
+
+
+inputs:
+  datadog-event:
+    description: 'Datadog event'
+    required: false
+  SLACK_WEBHOOK_URL:
+    description: 'Slack webhook url'
+    required: false
+
+  
+runs:
+  using: 'composite'
+  steps:
+    - name: Send GitHub trigger payload to Slack Workflow Builder
+      id: slack
+      uses: slackapi/slack-github-action@v1.25.0
+      with:
+        # For posting a rich message using Block Kit
+        payload: |
+          {
+            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
