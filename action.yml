@@ -19,8 +19,11 @@ inputs:
   slack-color:
     description: 'Slack color'
     required: false
-  slak-icon:
+  slack-icon:
     description: 'Slack icon'
+    required: false
+  slack-title:
+    description: 'Slack title'
     required: false
   slack-message:
     description: 'Slack message'
