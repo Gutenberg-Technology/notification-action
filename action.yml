@@ -7,33 +7,38 @@ inputs:
   datadog-event:
     description: 'Datadog event'
     required: false
-  SLACK_WEBHOOK_URL:
+  slack-webhook-url:
     description: 'Slack webhook url'
     required: false
-
+  slack-channel:
+    description: 'Slack channel'
+    required: false
+  slack-username:
+    description: 'Slack user'
+    required: false
+  slack-color:
+    description: 'Slack color'
+    required: false
+  slak-icon:
+    description: 'Slack icon'
+    required: false
+  slack-message:
+    description: 'Slack message'
+    required: false
   
 runs:
   using: 'composite'
   steps:
-    - name: Send GitHub trigger payload to Slack Workflow Builder
-      id: slack
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        # For posting a rich message using Block Kit
-        payload: |
-          {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-                }
-              }
-            ]
-          }
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
-        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        SLACK_WEBHOOK: ${{ inputs.slack-webhook-url }}
+        SLACK_CHANNEL: it_script
+        SLACK_USERNAME: ${{ inputs.slack-username }}
+        SLACK_COLOR: ${{ inputs.slack-color }}
+        SLACK_ICON: ${{ inputs.slack-icon }}
+        SLACK_MESSAGE: ${{ inputs.slack-message }}
+        SLACK_TITLE: Post Title
+
+        
 
