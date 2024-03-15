@@ -41,7 +41,7 @@ runs:
         SLACK_COLOR: ${{ inputs.slack-color }}
         SLACK_ICON: ${{ inputs.slack-icon }}
         SLACK_MESSAGE: ${{ inputs.slack-message }}
-        SLACK_TITLE: Post Title
+        SLACK_TITLE: ${{ inputs.slack-title }}
 
         
 
