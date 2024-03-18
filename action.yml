@@ -86,8 +86,7 @@ runs:
         events: |
           - title: "[${{ inputs.env }}] ${{ inputs.service }} @ ${{ inputs.version }} is deployed"
             text: "Successfully deployed ${{ inputs.service }} @ ${{ inputs.version }} in ${{ inputs.platform }}-${{ inputs.env }}"
-            alert_type: "info"
-            status: ${{ inputs.github-last-job-result }}
+            alert_type: ${{ inputs.github-last-job-result }}
             host: "GitHub/${{ inputs.github-repository-owner }}"
             version: ${{ inputs.version }}
             platform: ${{ inputs.platform }}
@@ -95,6 +94,12 @@ runs:
             env: ${{ inputs.env }}
             service: ${{ inputs.service }}
             source_type_name: "GitHub Actions"
+            tags:
+              - "platform:${{ inputs.platform }}"
+              - "version:${{ inputs.version }}"
+              - "service:${{ inputs.service }}"
+              - "environment:${{ inputs.env }}"
+              - "env:${{ inputs.env }}"
 
         
 
