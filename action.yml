@@ -84,7 +84,7 @@ runs:
 
     - name: Datadog - Send Event
       if: ${{ inputs.datadog-enabled == 'true' }}
-      uses: Gutenberg-Technology/datadog-action@main
+      uses: Gutenberg-Technology/datadog-action@master
       with:
         api-key: ${{ inputs.datadog-api-key }}
         events: |
