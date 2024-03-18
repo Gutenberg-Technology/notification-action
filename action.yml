@@ -6,7 +6,7 @@ author: 'Gutenberg Technology'
 inputs:
   platform:
     description: 'Platform'
-    required: true
+    required: false
   env:
     description: 'Environment'
     required: false
@@ -15,10 +15,10 @@ inputs:
     required: false
   version:
     description: 'Version'
-    required: true
+    required: false
   github-repository-owner:
     description: 'GitHub repository owner'
-    required: true
+    required: false
   datadog-enabled:
     description: 'Datadog enabled'
     required: true
