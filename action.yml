@@ -104,6 +104,7 @@ runs:
               - "service:${{ inputs.service }}"
               - "environment:${{ inputs.env }}"
               - "env:${{ inputs.env }}"
+              - source: ${{ inputs.datadog-source-type-name }}
 
         
 
