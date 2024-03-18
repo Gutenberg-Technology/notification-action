@@ -19,6 +19,21 @@ inputs:
   github-repository-owner:
     description: 'GitHub repository owner'
     required: false
+  github-repository:
+    description: 'GitHub repository name'
+    required: false
+  github-repository-url:
+    description: 'GitHub repository url'
+    required: false
+  github-workflow:
+    description: 'GitHub workflow'
+    required: false
+  github-job:
+    description: 'GitHub job'
+    required: false
+  github-sha:
+    description: 'GitHub sha'
+    required: false
   datadog-enabled:
     description: 'Datadog enabled'
     required: true
@@ -104,6 +119,10 @@ runs:
               - "environment:${{ inputs.env }}"
               - "env:${{ inputs.env }}"
               - "source:${{ inputs.datadog-source-type-name }}"
-
+              - "github.repository:${{ inputs.github-repository }}"
+              - "github.job:${{ inputs.github-job }}"
+              - "github.repository-url:${{ inputs.github-repository-url }}"
+              - "github.workflow:${{ inputs.github-workflow }}"
+              - "github.sha:${{ inputs.github-sha }}"
         
 
