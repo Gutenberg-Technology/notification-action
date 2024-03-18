@@ -4,9 +4,33 @@ author: 'Gutenberg Technology'
 
 
 inputs:
-  datadog-event:
-    description: 'Datadog event'
+  platform:
+    description: 'Platform'
+    required: true
+  env:
+    description: 'Environment'
     required: false
+  service:
+    description: 'Service'
+    required: false
+  version:
+    description: 'Version'
+    required: true
+  github-repository-owner:
+    description: 'GitHub repository owner'
+    required: true
+  datadog-enabled:
+    description: 'Datadog enabled'
+    required: true
+    default: 'false'
+  datadog-api-key:
+    description: 'Datadog api key'
+    required: false
+    default: "YOUR_DATADOG_API_KEY"
+  slack-enabled:
+    description: 'Slack enabled'
+    required: true
+    default: 'false'
   slack-webhook-url:
     description: 'Slack webhook url'
     required: false
@@ -40,7 +64,8 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Slack Notification
+    - name: Slack - Send Notification
+      if: ${{ inputs.slack-enabled == 'true' }}
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ inputs.slack-webhook-url }}
@@ -52,6 +77,23 @@ runs:
         SLACK_TITLE: ${{ inputs.slack-title }}
         SLACK_FOOTER: ${{ inputs.slack-footer }}
         SLACKIFY_MARKDOWN: ${{ inputs.slack-markdown }}
+
+    - name: Datadog - Send Event
+      if: ${{ inputs.datadog-enabled == 'true' }}
+      uses: masci/datadog@v1.7.1
+      with:
+        api-key: ${{ secrets.DATADOG_API_KEY }}
+        events: |
+          - title: "[${{ inputs.env }}] ${{ inputs.service }} @ ${{ inputs.version }} is deployed"
+            text: "Successfully deployed ${{ inputs.service }} @ ${{ inputs.version }} in ${{ inputs.platform }}-${{ inputs.env }}"
+            alert_type: "Success"
+            host: "GitHub/${{ inputs.github-repository-owner }}"
+            version: ${{ inputs.version }}
+            platform: ${{ inputs.platform }}
+            environment: ${{ inputs.env }}
+            env: ${{ inputs.env }}
+            service: ${{ inputs.service }}
+            source: "GitHub Actions"
 
         
 
