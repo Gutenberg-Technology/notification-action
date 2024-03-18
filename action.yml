@@ -32,6 +32,10 @@ inputs:
     description: 'Slack footer'
     required: false
     default: 'Gutenberg Technology'
+  slack-markdown:
+    description: 'Slackify markdown'
+    required: false
+    default: 'false'
   
 runs:
   using: 'composite'
@@ -47,6 +51,7 @@ runs:
         SLACK_MESSAGE: ${{ inputs.slack-message }}
         SLACK_TITLE: ${{ inputs.slack-title }}
         SLACK_FOOTER: ${{ inputs.slack-footer }}
+        SLACKIFY_MARKDOWN: ${{ inputs.slack-markdown }}
 
         
 
