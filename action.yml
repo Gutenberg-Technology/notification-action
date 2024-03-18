@@ -82,7 +82,7 @@ runs:
       if: ${{ inputs.datadog-enabled == 'true' }}
       uses: masci/datadog@v1.7.1
       with:
-        api-key: ${{ secrets.DATADOG_API_KEY }}
+        api-key: ${{ inputs.datadog-api-key }}
         events: |
           - title: "[${{ inputs.env }}] ${{ inputs.service }} @ ${{ inputs.version }} is deployed"
             text: "Successfully deployed ${{ inputs.service }} @ ${{ inputs.version }} in ${{ inputs.platform }}-${{ inputs.env }}"
