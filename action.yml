@@ -28,6 +28,10 @@ inputs:
   slack-message:
     description: 'Slack message'
     required: false
+  slack-footer:
+    description: 'Slack footer'
+    required: false
+    default: 'Gutenberg Technology'
   
 runs:
   using: 'composite'
@@ -42,6 +46,7 @@ runs:
         SLACK_ICON: ${{ inputs.slack-icon }}
         SLACK_MESSAGE: ${{ inputs.slack-message }}
         SLACK_TITLE: ${{ inputs.slack-title }}
+        SLACK_FOOTER: ${{ inputs.slack-footer }}
 
         
 
