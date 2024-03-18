@@ -97,7 +97,7 @@ runs:
             environment: ${{ inputs.env }}
             env: ${{ inputs.env }}
             service: ${{ inputs.service }}
-            source: ${{ inputs.datadog-source-type-name }}
+            source_type_name: ${{ inputs.datadog-source-type-name }}
             tags:
               - "platform:${{ inputs.platform }}"
               - "version:${{ inputs.version }}"
