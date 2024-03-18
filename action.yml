@@ -27,6 +27,10 @@ inputs:
     description: 'Datadog api key'
     required: false
     default: "YOUR_DATADOG_API_KEY"
+  datadog-source-type-name:
+    description: 'Datadog source type name'
+    required: false
+    default: 'github'
   slack-enabled:
     description: 'Slack enabled'
     required: true
@@ -93,7 +97,7 @@ runs:
             environment: ${{ inputs.env }}
             env: ${{ inputs.env }}
             service: ${{ inputs.service }}
-            source_type_name: "GitHub Actions"
+            source_type_name: ${{ inputs.datadog-source-type-name }}
             tags:
               - "platform:${{ inputs.platform }}"
               - "version:${{ inputs.version }}"
